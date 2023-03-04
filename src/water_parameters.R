@@ -14,7 +14,7 @@ lakeName = data.frame(lakeid = c('TR', 'CR', 'BM', 'SP', 'AL', 'TB', 'CB', 'ME',
                                          'Lake Wingra'))
 
 # Load derived thermocline data
-thermocline = read_csv('data/thermocline.csv')
+thermocline = read_csv('deriveddata/thermocline.csv')
 
 # Load NTL data
 dtTemp = loadLTERtemp() |> filter(sta == 1) |> 
@@ -158,7 +158,7 @@ join4 = join3 |> select(
   DOC_um, 
   DIC_um, 
   chloride_mgL, 
-  alkalinity_mgL, 
+  alkalinity_mgL,
   hardness_mgL, 
   turbidity_NTU, 
   TN_mgL, 

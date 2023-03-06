@@ -1,22 +1,11 @@
 library(tidyverse)
 library(lubridate)
 
-
-lakeName = data.frame(lakeid = c('TR', 'CR', 'BM', 'SP', 'AL', 'TB', 'CB', 'ME', 'MO', 'FI', 'WI'),
-                      waterbody_name = c('Trout Lake',
-                                         'Crystal Lake',
-                                         'Big Muskellunge Lake',
-                                         'Sparkling Lake',
-                                         'Allequash',
-                                         'Trout Bog',
-                                         'Crystal Bog',
-                                         'Lake Mendota',
-                                         'Lake Monona',
-                                         'Fish Lake',
-                                         'Lake Wingra'))
+# load lakeid to waterbody name table
+source('src/Functions/getLakeName.R')
+lakeName = getLakeName()
 
 ### Download zooplankton data from EDI
-
 # Package ID: knb-lter-ntl.37.37 Cataloging System:https://pasta.edirepository.org.
 # Data set title: North Temperate Lakes LTER: Zooplankton - Trout Lake Area 1982 - current.
 # A minimum of 5 samples per lake-year are identified and counted. 
@@ -140,5 +129,34 @@ zooplankton = zoop.north |> bind_rows(zoop.south)
 write_csv(zooplankton, 'data/zoop_length.csv')
 
 
+################ Taxa List ################ 
 
+taxa_list = dt1 |> select(species_code, species_name) |> 
+  bind_rows(dt2 |> select(species_code, species_name)) |> 
+  filter(!is.na(species_name) & species_name != 'UNKNOWN') |> 
+  distinct() |> 
+  mutate(code = floor(species_code/10000)) |>
+  mutate(ZIG_grouping = case_when(
+      species_code == '70100' ~ 'chaoborus',
+      species_code == '50700' ~ 'bosmina',
+      species_code >= 51100 & species_code <= 51230 ~ 'daphnia',
+      code == 1 ~ 'nauplii',
+     code == 2 ~ 'cyclopoid',
+     code == 3 ~ 'calanoid',
+     code == 4 ~ 'harpacticoid',
+     code == 5 ~ 'cladocera',
+     code == 6 ~ 'rotifer',
+     code == 7 ~ 'unknown',
+     code == 8 ~ 'unknown',
+     code == 9 ~ 'unknown')) |> 
+  arrange(species_code) |> 
+  mutate(taxa_name = species_name, 
+         other_grouping = NA,
+         genus = NA,
+         species = species_name, 
+         invasive = NA) |> 
+  select(taxa_name, ZIG_grouping, other_grouping, genus, species, invasive) |> 
+  distinct()
+
+write_csv(taxa_list, 'data/taxa_list.csv')
 

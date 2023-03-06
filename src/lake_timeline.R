@@ -1,17 +1,7 @@
 # lake_timeline
-
-lakeName = data.frame(lakeid = c('TR', 'CR', 'BM', 'SP', 'AL', 'TB', 'CB', 'ME', 'MO', 'FI', 'WI'),
-                      waterbody_name = c('Trout Lake',
-                                         'Crystal Lake',
-                                         'Big Muskellunge Lake',
-                                         'Sparkling Lake',
-                                         'Allequash',
-                                         'Trout Bog',
-                                         'Crystal Bog',
-                                         'Lake Mendota',
-                                         'Lake Monona',
-                                         'Fish Lake',
-                                         'Lake Wingra'))
+# load lakeid to waterbody name table
+source('src/Functions/getLakeName.R')
+lakeName = getLakeName()
 
 # find lakes and years 
 yearsN = dt1 |> group_by(lakeid, year4) |> 

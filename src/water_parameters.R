@@ -1,18 +1,9 @@
+#water paramter spreadsheet
+# load lakeid to waterbody name table
+source('src/Functions/getLakeName.R')
+lakeName = getLakeName()
+
 library(NTLlakeloads)
-
-lakeName = data.frame(lakeid = c('TR', 'CR', 'BM', 'SP', 'AL', 'TB', 'CB', 'ME', 'MO', 'FI', 'WI'),
-                      waterbody_name = c('Trout Lake',
-                                         'Crystal Lake',
-                                         'Big Muskellunge Lake',
-                                         'Sparkling Lake',
-                                         'Allequash',
-                                         'Trout Bog',
-                                         'Crystal Bog',
-                                         'Lake Mendota',
-                                         'Lake Monona',
-                                         'Fish Lake',
-                                         'Lake Wingra'))
-
 # Load derived thermocline data
 thermocline = read_csv('deriveddata/thermocline.csv')
 
@@ -100,8 +91,8 @@ joinEpi = join2 |> filter(layer == 'epi') |>
          TKN_mgL = kjdl.n, 
          do_epi_mgL = o2, 
          conductivity_umho_cm = cond,  # umho... really? 
-         DOC_um = doc, 
-         DIC_um = dic, 
+         DOC_mgL = doc, 
+         DIC_mgL = dic, 
          chloride_mgL = cl, 
          alkalinity_mgL = alk, 
          TN_mgL = totnuf,
@@ -162,7 +153,7 @@ join4 = join3 |> select(
   hardness_mgL, 
   turbidity_NTU, 
   TN_mgL, 
-  surf_or_int)
+  surf_or_int) 
 
 write_csv(join4, 'data/water_parameters.csv')
 

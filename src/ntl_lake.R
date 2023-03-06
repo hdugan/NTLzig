@@ -1,17 +1,8 @@
+#lake spreadsheet
 
-
-lakeName = data.frame(lakeid = c('TR', 'CR', 'BM', 'SP', 'AL', 'TB', 'CB', 'ME', 'MO', 'FI', 'WI'),
-                      waterbody_name = c('Trout Lake',
-                                         'Crystal Lake',
-                                         'Big Muskellunge Lake',
-                                         'Sparkling Lake',
-                                         'Allequash',
-                                         'Trout Bog',
-                                         'Crystal Bog',
-                                         'Lake Mendota',
-                                         'Lake Monona',
-                                         'Fish Lake',
-                                         'Lake Wingra'))
+# load lakeid to waterbody name table
+source('src/Functions/getLakeName.R')
+lakeName = getLakeName()
 
 locations = 
   data.frame(lakeid = 'AL', lat = 46.038, long = -89.621, avg_depth_m = 2.9, max_depth_m = 8, mixing_type = 'dimictic', waterbody_area_ha = 164.2, elevation_m = 493, watershed_area_ha = NA) |>  bind_rows(

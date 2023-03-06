@@ -1,0 +1,12 @@
+lakeid,waterbody_name,fish_density_biomass,veligers,mussel_counts_biomass,ciliates,phytoplankton_biomass,bacteria_biomass,stratified_zoop,detailed_zoop_length,meterological
+TR,Trout Lake,abundance,NA,NA,NA,NA,NA,NA,NA,yes
+CR,Crystal Lake,abundance,NA,NA,NA,NA,NA,NA,NA,yes
+BM,Big Muskellunge Lake,abundance,NA,NA,NA,NA,NA,NA,NA,no
+SP,Sparkling Lake,abundance,NA,NA,NA,NA,NA,NA,NA,yes
+AL,Allequash Lake,abundance,NA,NA,NA,NA,NA,NA,NA,no
+TB,Trout Bog,abundance,NA,NA,NA,NA,NA,NA,NA,yes
+CB,Crystal Bog,abundance,NA,NA,NA,NA,NA,NA,NA,no
+ME,Lake Mendota,abundance,NA,NA,NA,yes,NA,NA,NA,yes
+MO,Lake Monona,abundance,NA,NA,NA,yes,NA,NA,NA,no
+FI,Fish Lake,abundance,NA,NA,NA,NA,NA,NA,NA,no
+WI,Lake Wingra,abundance,NA,NA,NA,NA,NA,NA,NA,no

@@ -5,20 +5,11 @@ lake = read_csv('data/lake.csv') |>
          sampling_frequency = 'fortnightly',
          sid_comments = NA)
 
+# load lakeid to waterbody name table
+source('src/Functions/getLakeName.R')
+lakeName = getLakeName()
 
-hypoDO = data.frame(lakeid = c('TR', 'CR', 'BM', 'SP', 'AL', 'TB', 'CB', 'ME', 'MO', 'FI', 'WI'),
-                    waterbody_name = c('Trout Lake',
-                                       'Crystal Lake',
-                                       'Big Muskellunge Lake',
-                                       'Sparkling Lake',
-                                       'Allequash',
-                                       'Trout Bog',
-                                       'Crystal Bog',
-                                       'Lake Mendota',
-                                       'Lake Monona',
-                                       'Fish Lake',
-                                       'Lake Wingra'),
-                      hypo_oxygen = c('Y',
+hypoDO = lakeName |> mutate(hypo_oxygen = c('Y',
                                          'Y',
                                          'Y',
                                          'Y',

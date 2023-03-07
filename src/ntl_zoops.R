@@ -9,10 +9,17 @@ lakeName = getLakeName()
 # Package ID: knb-lter-ntl.37.37 Cataloging System:https://pasta.edirepository.org.
 # Data set title: North Temperate Lakes LTER: Zooplankton - Trout Lake Area 1982 - current.
 # A minimum of 5 samples per lake-year are identified and counted. 
-maxDepths = data.frame(lakeid = c('TR', 'CB', 'BM', 'SP', 'AL', 'TB', 'CB'),
-                       maxDepth = c(31, 18, 18, 17, 6, 6, 1))
+maxDepths = data.frame(lakeid = c('TR', 'CR', 'BM', 'SP', 'AL', 'TB', 'CB'),
+                       maxDepth = c(31, 18, 18, 17, 6, 6, 1),
+                       allDepths = c('1, 3, 5, 7, 9, 15, 20, 27, 31',
+                                     '1, 3, 5, 7, 9, 11, 13, 15, 18',
+                                     '1, 3, 5, 7, 9, 11, 13, 15, 18',
+                                     '1, 3, 5, 7, 9, 11, 13, 15, 17',
+                                     '1, 3, 6',
+                                     '1, 3, 6',
+                                     1))
 
-# Samples are collected as a vertical tow using an 80-micron mesh conical net with a 30-cm diameter opening (net mouth: net length ratio = 1:3) 
+# Schindler-Patalas TrapFor LTER lakes use the 2-meter high, 45L Schindler-Patalas trap with 53um mesh net and cup. 
 # numberPerMeterSquared
 inUrl1  <- "https://pasta.lternet.edu/package/data/eml/knb-lter-ntl/37/37/c4b652eea76cd431ac5fd3562b1837ee" 
 infile1 <- tempfile()
@@ -27,10 +34,10 @@ zoop.north = dt1 |> filter(station == 1) |>
          month_mm = month(sample_date),
          time_hhmm = NA,
          time_of_day = 'day', 
-         sample_depth_m = maxDepth,
-         zoop_sampler_type = 'vertical net', 
-         zoop_mesh_um = 80, 
-         zoop_net_mouth_area_cm2 = 30,
+         sample_depth_m = allDepths,
+         zoop_sampler_type = 'Schindler-Patalas Trap 2-m high 45L hyposometrically pooled', 
+         zoop_mesh_um = 53, 
+         zoop_net_mouth_area_cm2 = NA,
          min_counts	= NA,
          density_value = density,
          density_units = 'individuals per m2',
@@ -65,7 +72,7 @@ zoop.south = dt2 |> filter(station == 1) |>
          month_mm = month(sample_date),
          time_hhmm = NA,
          time_of_day = 'day', 
-         sample_depth_m = towdepth,
+         sample_depth_m = as.character(towdepth),
          zoop_sampler_type = 'vertical net', 
          zoop_mesh_um = 80, 
          zoop_net_mouth_area_cm2 = 30,

@@ -138,10 +138,11 @@ write_csv(zooplankton, 'data/zoop_length.csv')
 
 ################ Taxa List ################ 
 
-taxa_list = dt1 |> select(species_code, species_name) |> 
-  bind_rows(dt2 |> select(species_code, species_name)) |> 
+taxa_list = dt1 |> select(lakeid, species_code, species_name) |> 
+  bind_rows(dt2 |> select(lakeid, species_code, species_name)) |> 
   filter(!is.na(species_name) & species_name != 'UNKNOWN') |> 
   distinct() |> 
+  rename(waterbody_name = lakeid) |> 
   mutate(code = floor(species_code/10000)) |>
   mutate(ZIG_grouping = case_when(
       species_code == '70100' ~ 'chaoborus',
@@ -156,13 +157,13 @@ taxa_list = dt1 |> select(species_code, species_name) |>
      code == 7 ~ 'unknown',
      code == 8 ~ 'unknown',
      code == 9 ~ 'unknown')) |> 
-  arrange(species_code) |> 
+  arrange(waterbody_name, species_code) |> 
   mutate(taxa_name = species_name, 
          other_grouping = NA,
          genus = NA,
          species = species_name, 
          invasive = NA) |> 
-  select(taxa_name, ZIG_grouping, other_grouping, genus, species, invasive) |> 
+  select(waterbody_name, taxa_name, ZIG_grouping, other_grouping, genus, species, invasive) |> 
   distinct()
 
 write_csv(taxa_list, 'data/taxa_list.csv')

@@ -105,14 +105,13 @@ length.north = dt1 |>
          month_mm = month(sample_date),
          time_hhmm = NA,
          time_of_day = 'day', 
-         zoop_sampler_type = 'vertical net', 
+         zoop_sampler_type = 'Schindler-Patalas Trap 2-m high 45L hyposometrically pooled', 
          length_type = 'mean',
   ) |> 
   select(waterbody_name, stationid, year_yyyy = year4, month_mm, day_of_month_dd,
          time_hhmm, time_of_day, taxa_name = species_name, 
          zoop_sampler_type, 
          length_type, length_raw_ID = individuals_measured, length_mm = avg_length)
-
 
 length.south = dt2 |> 
   filter(station == 1) |> 

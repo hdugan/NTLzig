@@ -3,7 +3,10 @@
 source('src/Functions/getLakeName.R')
 lakeName = getLakeName()
 
+# devtools::install_github('hdugan/NTLlakeloads')
 library(NTLlakeloads)
+library(tidyverse)
+library(lubridate)
 # Load derived thermocline data
 thermocline = read_csv('deriveddata/thermocline.csv')
 
@@ -27,7 +30,9 @@ dtNuts = loadLTERnutrients()
 
 dtSecchi = loadLTERsecchi() |> filter(sta == 1) |> 
   select(lakeid, year4, sampledate, secnview) |> 
-  filter(!is.na(secnview))
+  filter(!is.na(secnview)) |> 
+  group_by(lakeid, year4, sampledate) |> 
+  summarise(secnview = mean(secnview))
 
 dtIons = loadLTERions() |> filter(sta == 1) |> 
   select(lakeid, year4, sampledate, depth, cl, cond) |> 
@@ -146,8 +151,8 @@ join4 = join3 |> select(
   do_epi_mgL, 
   do_hypo_mgL, 
   conductivity_umho_cm,  # umho... really? 
-  DOC_um, 
-  DIC_um, 
+  DOC_mgL, 
+  DIC_mgL, 
   chloride_mgL, 
   alkalinity_mgL,
   hardness_mgL, 
@@ -156,4 +161,3 @@ join4 = join3 |> select(
   surf_or_int) 
 
 write_csv(join4, 'data/water_parameters.csv')
-

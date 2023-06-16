@@ -28,7 +28,7 @@ dt1 <-read_csv(infile1)
 
 zoop.north = dt1 |> 
   group_by(lakeid) |> 
-  filter(sta == min(sta)) |> 
+  filter(station == min(station)) |> 
   ungroup() |> 
   left_join(lakeName) |> 
   left_join(maxDepths) |> 
@@ -70,7 +70,7 @@ dt2 <-read_csv(infile1)
 
 zoop.south = dt2 |> 
   group_by(lakeid) |> 
-  filter(sta == min(sta)) |> 
+  filter(station == min(station)) |> 
   ungroup() |> 
   left_join(lakeName) |> 
   mutate(day_of_month_dd = format(as.Date(sample_date), "%d"),
@@ -103,7 +103,7 @@ write_csv(zooplankton, 'data/zooplankton.csv')
 ################ Length data ################ 
 length.north = dt1 |> 
   group_by(lakeid) |> 
-  filter(sta == min(sta)) |> 
+  filter(station == min(station)) |> 
   ungroup() |> 
   filter(!is.na(avg_length)) |> 
   left_join(lakeName) |> 
@@ -123,7 +123,7 @@ length.north = dt1 |>
 
 length.south = dt2 |> 
   group_by(lakeid) |> 
-  filter(sta == min(sta)) |> 
+  filter(station == min(station)) |> 
   ungroup() |> 
   filter(!is.na(avg_length)) |> 
   left_join(lakeName) |> 

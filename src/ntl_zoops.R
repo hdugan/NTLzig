@@ -26,7 +26,10 @@ infile1 <- tempfile()
 download.file(inUrl1,infile1,method="auto")
 dt1 <-read_csv(infile1)
 
-zoop.north = dt1 |> filter(station == 1) |> 
+zoop.north = dt1 |> 
+  group_by(lakeid) |> 
+  filter(sta == min(sta)) |> 
+  ungroup() |> 
   left_join(lakeName) |> 
   left_join(maxDepths) |> 
   mutate(day_of_month_dd = format(as.Date(sample_date), "%d"),
@@ -65,7 +68,10 @@ infile1 <- tempfile()
 download.file(inUrl1,infile1,method="auto")
 dt2 <-read_csv(infile1)
 
-zoop.south = dt2 |> filter(station == 1) |> 
+zoop.south = dt2 |> 
+  group_by(lakeid) |> 
+  filter(sta == min(sta)) |> 
+  ungroup() |> 
   left_join(lakeName) |> 
   mutate(day_of_month_dd = format(as.Date(sample_date), "%d"),
          stationid = 'DeepHole',
@@ -96,7 +102,9 @@ write_csv(zooplankton, 'data/zooplankton.csv')
 
 ################ Length data ################ 
 length.north = dt1 |> 
-  filter(station == 1) |> 
+  group_by(lakeid) |> 
+  filter(sta == min(sta)) |> 
+  ungroup() |> 
   filter(!is.na(avg_length)) |> 
   left_join(lakeName) |> 
   left_join(maxDepths) |> 
@@ -114,7 +122,9 @@ length.north = dt1 |>
          length_type, length_raw_ID = individuals_measured, length_mm = avg_length)
 
 length.south = dt2 |> 
-  filter(station == 1) |> 
+  group_by(lakeid) |> 
+  filter(sta == min(sta)) |> 
+  ungroup() |> 
   filter(!is.na(avg_length)) |> 
   left_join(lakeName) |> 
   mutate(day_of_month_dd = format(as.Date(sample_date), "%d"),

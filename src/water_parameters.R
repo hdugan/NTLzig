@@ -11,14 +11,19 @@ library(lubridate)
 thermocline = read_csv('deriveddata/thermocline.csv')
 
 # Load NTL data
-dtTemp = loadLTERtemp() |> filter(sta == 1) |> 
+dtTemp = loadLTERtemp() |> 
+  group_by(lakeid) |> 
+  filter(sta == min(sta)) |> 
   select(lakeid, year4, sampledate, depth, wtemp, o2) |> 
-  filter(!is.na(wtemp))
+  filter(!is.na(wtemp)) |> 
+  ungroup()
 
 dtChlN = loadLTERchlorophyll.north() |> 
-  filter(sta == 1) |> 
+  group_by(lakeid) |> 
+  filter(sta == min(sta)) |> 
   select(lakeid, year4, sampledate, depth, chlor) |> 
-  filter(!is.na(chlor))
+  filter(!is.na(chlor)) |> 
+  ungroup()
 
 dtChlS = loadLTERchlorophyll.south() |> 
   mutate(depth = 0) |> 
@@ -28,19 +33,27 @@ dtChlS = loadLTERchlorophyll.south() |>
              
 dtNuts = loadLTERnutrients()
 
-dtSecchi = loadLTERsecchi() |> filter(sta == 1) |> 
+dtSecchi = loadLTERsecchi() |> 
+  group_by(lakeid) |> 
+  filter(sta == min(sta)) |> 
   select(lakeid, year4, sampledate, secnview) |> 
   filter(!is.na(secnview)) |> 
   group_by(lakeid, year4, sampledate) |> 
-  summarise(secnview = mean(secnview))
+  summarise(secnview = mean(secnview)) |> 
+  ungroup()
 
-dtIons = loadLTERions() |> filter(sta == 1) |> 
+dtIons = loadLTERions() |> 
+  group_by(lakeid) |> 
+  filter(sta == min(sta)) |> 
   select(lakeid, year4, sampledate, depth, cl, cond) |> 
-  filter(!is.na(cl))
+  filter(!is.na(cl)) |> 
+  ungroup()
 
 # Clean up nutrient data
 dtNuts.long = dtNuts %>%
-  filter(sta == 1) |> 
+  group_by(lakeid) |> 
+  filter(sta == min(sta)) |> 
+  ungroup() |> 
   mutate(across(everything(), ~replace(., .<0 , NA))) %>%
   rename_all( ~ str_replace(., "_sloh", '.sloh')) %>%
   rename_all( ~ str_replace(., "_n", '.n')) %>%

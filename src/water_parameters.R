@@ -34,6 +34,7 @@ dtChlS = loadLTERchlorophyll.south() |>
 dtNuts = loadLTERnutrients()
 
 dtSecchi = loadLTERsecchi() |> 
+  filter(!(lakeid == 'TR' & sta == 1)) |> 
   group_by(lakeid) |> 
   filter(sta == min(sta)) |> 
   select(lakeid, year4, sampledate, secnview) |> 

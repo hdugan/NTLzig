@@ -1,0 +1,12 @@
+lake_name,yr_start_yyyy,waterbody_type,waterbody_lat_decdeg,waterbody_lon_decdeg,country,avg_depth_m,max_depth_m,mixing_type,waterbody_area_ha,watershed_area_ha,elevation_m,trophic_state,dom_land_use
+Trout Lake,1981,lake,46.029267,-89.665017,USA,14.6,35.7,dimictic,1565.1,NA,490,oligotrophic,natural
+Crystal Lake,1981,lake,46.00275,-89.612233,USA,11.4,20.4,dimictic,37.5,NA,500,oligotrophic,natural
+Big Muskellunge Lake,1981,lake,46.021067,-89.611783,USA,7.5,21.3,dimictic,363.4,555.6,500,oligotrophic,natural
+Sparkling Lake,1981,lake,46.007733,-89.701183,USA,10.9,20,dimictic,64,237.4,495,oligotrophic,natural
+Allequash Lake,1981,lake,46.038,-89.621,USA,2.9,8,dimictic,164.2,NA,493,mesotrophic,natural
+Trout Bog,1981,lake,46.04125,-89.686283,USA,5.6,7.9,dimictic,1,NA,495,dystrophic,natural
+Crystal Bog,1981,lake,46.007583,-89.606183,USA,1.7,2.5,dimictic,0.6,NA,501,dystrophic,natural
+Lake Mendota,1995,lake,43.09885,-89.40545,USA,12.8,25.3,dimictic,3961.2,29175,259,eutrophic,agricultural
+Lake Monona,1995,lake,43.06337,-89.36086,USA,8.2,22.5,dimictic,1359.8,24946,254,eutrophic,agricultural
+Fish Lake,1995,lake,43.28733,-89.65173,USA,6.6,18.9,dimictic,80.4,NA,259,mesotrophic,agricultural
+Lake Wingra,1995,lake,43.05258,-89.42499,USA,2.7,4,polymictic,136.2,1398,254,eutrophic,developed

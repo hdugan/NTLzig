@@ -97,6 +97,7 @@ join2 = join1 |>
 # select epi columns
 joinEpi = join2 |> filter(layer == 'epi') |> 
   mutate(totnuf = totnuf/1000, no3no2 = no3no2/1000, kjdl.n = kjdl.n/1000) |> 
+  mutate(alk = alk * 100.0869 / 1000 /2) |>  # convert uEq to mg by molar mass CaCO3) 
   mutate(hardness_mgL = NA, 
          turbidity_NTU = NA) |> 
   select(lakeid:layer,
@@ -113,7 +114,7 @@ joinEpi = join2 |> filter(layer == 'epi') |>
          DOC_mgL = doc, 
          DIC_mgL = dic, 
          chloride_mgL = cl, 
-         alkalinity_mgL = alk, 
+         alkalinity_mgL = alk,
          TN_mgL = totnuf,
          hardness_mgL, 
          turbidity_NTU

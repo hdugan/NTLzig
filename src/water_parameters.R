@@ -93,7 +93,17 @@ join2 = join1 |>
   summarise_if(is.numeric, mean, na.rm = TRUE) |> 
   mutate_all(~ifelse(is.nan(.), NA, .)) |> 
   ungroup()
+
+join.depth = join1 |> 
+  pivot_longer(cols = wtemp:cond) |> 
+  filter(!is.na(value)) |> 
+  group_by(lakeid, year4, sampledate, layer, name) |> 
+  summarise(depth_int = paste(depth, collapse = ",")) |> 
+  ungroup() |> 
+  select(-year4)
   
+write_csv(join.depth, 'data/water_paramter_depths.csv')
+
 # select epi columns
 joinEpi = join2 |> filter(layer == 'epi') |> 
   mutate(totnuf = totnuf/1000, no3no2 = no3no2/1000, kjdl.n = kjdl.n/1000) |> 
